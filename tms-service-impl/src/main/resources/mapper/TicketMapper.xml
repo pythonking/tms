@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.tms.mapper.TicketMapper">
-    <resultMap id="BaseResultMap" type="com.kaishengit.tms.entity.Ticket">
+<mapper namespace="com.karsait.tms.mapper.TicketMapper">
+    <resultMap id="BaseResultMap" type="com.karsait.tms.entity.Ticket">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="ticket_num" jdbcType="VARCHAR" property="ticketNum"/>
         <result column="ticket_in_time" jdbcType="TIMESTAMP" property="ticketInTime"/>
@@ -78,7 +78,7 @@
     id, ticket_num, ticket_in_time, ticket_state, create_time, update_time, ticket_out_time, 
     store_account_id, ticket_validity_start, ticket_validity_end, customer_id
   </sql>
-    <select id="selectByExample" parameterType="com.kaishengit.tms.entity.TicketExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.karsait.tms.entity.TicketExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -102,7 +102,7 @@
     delete from tickets
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <delete id="deleteByExample" parameterType="com.kaishengit.tms.entity.TicketExample">
+    <delete id="deleteByExample" parameterType="com.karsait.tms.entity.TicketExample">
         delete from tickets
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
@@ -116,7 +116,7 @@
         </foreach>
         )
     </delete>
-    <insert id="insert" parameterType="com.kaishengit.tms.entity.Ticket">
+    <insert id="insert" parameterType="com.karsait.tms.entity.Ticket">
     insert into tickets (id, ticket_num, ticket_in_time, 
       ticket_state, create_time, update_time, 
       ticket_out_time, store_account_id, ticket_validity_start, 
@@ -126,7 +126,7 @@
       #{ticketOutTime,jdbcType=VARCHAR}, #{storeAccountId,jdbcType=INTEGER}, #{ticketValidityStart,jdbcType=TIMESTAMP}, 
       #{ticketValidityEnd,jdbcType=TIMESTAMP}, #{customerId,jdbcType=BIGINT})
   </insert>
-    <insert id="insertSelective" parameterType="com.kaishengit.tms.entity.Ticket">
+    <insert id="insertSelective" parameterType="com.karsait.tms.entity.Ticket">
         insert into tickets
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -206,7 +206,7 @@
             (#{ticket.ticketNum},#{ticket.ticketNum},#{ticket.ticketInTime},#{ticket.ticketState},#{ticket.createTime})
         </foreach>
     </insert>
-    <select id="countByExample" parameterType="com.kaishengit.tms.entity.TicketExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.karsait.tms.entity.TicketExample" resultType="java.lang.Long">
         select count(*) from tickets
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
@@ -223,7 +223,7 @@
         FROM
             tickets
     </select>
-    <select id="findByBeginNumAndEndNum" resultType="com.kaishengit.tms.entity.Ticket">
+    <select id="findByBeginNumAndEndNum" resultType="com.karsait.tms.entity.Ticket">
         SELECT
           *
         FROM
@@ -233,7 +233,7 @@
         AND
           ticket_num &lt;= CONVERT(#{endNum},UNSIGNED INT);
     </select>
-    <select id="findByBeginNumAndEndNumAndState" resultType="com.kaishengit.tms.entity.Ticket">
+    <select id="findByBeginNumAndEndNumAndState" resultType="com.karsait.tms.entity.Ticket">
         SELECT
           *
         FROM
@@ -314,7 +314,7 @@
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.tms.entity.Ticket">
+    <update id="updateByPrimaryKeySelective" parameterType="com.karsait.tms.entity.Ticket">
         update tickets
         <set>
             <if test="ticketNum != null">
@@ -350,7 +350,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.kaishengit.tms.entity.Ticket">
+    <update id="updateByPrimaryKey" parameterType="com.karsait.tms.entity.Ticket">
     update tickets
     set ticket_num = #{ticketNum,jdbcType=VARCHAR},
       ticket_in_time = #{ticketInTime,jdbcType=TIMESTAMP},

@@ -9,7 +9,7 @@
         <!--是否是固定重复的任务-->
         <property name="durability" value="true"/>
         <!--任务的实现类-->
-        <property name="jobClass" value="com.kaishengit.tms.quartzJobs.CheckTicketJob"/>
+        <property name="jobClass" value="com.karsait.tms.quartzJobs.CheckTicketJob"/>
     </bean>
 
     <!--3. 定义Trigger-->

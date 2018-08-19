@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.tms.mapper.RolesPermissionMapper">
-  <resultMap id="BaseResultMap" type="com.kaishengit.tms.entity.RolesPermissionKey">
+<mapper namespace="com.karsait.tms.mapper.RolesPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.karsait.tms.entity.RolesPermissionKey">
     <id column="roles_id" jdbcType="INTEGER" property="rolesId" />
     <id column="permission_id" jdbcType="INTEGER" property="permissionId" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List">
     roles_id, permission_id
   </sql>
-  <select id="selectByExample" parameterType="com.kaishengit.tms.entity.RolesPermissionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.karsait.tms.entity.RolesPermissionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -80,22 +80,22 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.kaishengit.tms.entity.RolesPermissionKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.karsait.tms.entity.RolesPermissionKey">
     delete from roles_permission
     where roles_id = #{rolesId,jdbcType=INTEGER}
       and permission_id = #{permissionId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kaishengit.tms.entity.RolesPermissionExample">
+  <delete id="deleteByExample" parameterType="com.karsait.tms.entity.RolesPermissionExample">
     delete from roles_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.tms.entity.RolesPermissionKey">
+  <insert id="insert" parameterType="com.karsait.tms.entity.RolesPermissionKey">
     insert into roles_permission (roles_id, permission_id)
     values (#{rolesId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.tms.entity.RolesPermissionKey">
+  <insert id="insertSelective" parameterType="com.karsait.tms.entity.RolesPermissionKey">
     insert into roles_permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="rolesId != null">
@@ -114,7 +114,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kaishengit.tms.entity.RolesPermissionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.karsait.tms.entity.RolesPermissionExample" resultType="java.lang.Long">
     select count(*) from roles_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

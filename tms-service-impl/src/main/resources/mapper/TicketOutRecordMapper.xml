@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.tms.mapper.TicketOutRecordMapper">
-  <resultMap id="BaseResultMap" type="com.kaishengit.tms.entity.TicketOutRecord">
+<mapper namespace="com.karsait.tms.mapper.TicketOutRecordMapper">
+  <resultMap id="BaseResultMap" type="com.karsait.tms.entity.TicketOutRecord">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -83,7 +83,7 @@
     begin_ticket_num, end_ticket_num, total_num, price, total_price, store_account_name, 
     store_account_id, out_account_id, finance_account_id, pay_type
   </sql>
-  <select id="selectByExample" parameterType="com.kaishengit.tms.entity.TicketOutRecordExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.karsait.tms.entity.TicketOutRecordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -107,13 +107,13 @@
     delete from ticket_out_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kaishengit.tms.entity.TicketOutRecordExample">
+  <delete id="deleteByExample" parameterType="com.karsait.tms.entity.TicketOutRecordExample">
     delete from ticket_out_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.tms.entity.TicketOutRecord">
+  <insert id="insert" parameterType="com.karsait.tms.entity.TicketOutRecord">
     insert into ticket_out_record (id, create_time, update_time, 
       out_account_name, finance_account_name, state, 
       content, begin_ticket_num, end_ticket_num, 
@@ -127,7 +127,7 @@
       #{storeAccountName,jdbcType=VARCHAR}, #{storeAccountId,jdbcType=INTEGER}, #{outAccountId,jdbcType=INTEGER}, 
       #{financeAccountId,jdbcType=INTEGER}, #{payType,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.tms.entity.TicketOutRecord">
+  <insert id="insertSelective" parameterType="com.karsait.tms.entity.TicketOutRecord">
     insert into ticket_out_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -236,7 +236,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kaishengit.tms.entity.TicketOutRecordExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.karsait.tms.entity.TicketOutRecordExample" resultType="java.lang.Long">
     select count(*) from ticket_out_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -324,7 +324,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.tms.entity.TicketOutRecord">
+  <update id="updateByPrimaryKeySelective" parameterType="com.karsait.tms.entity.TicketOutRecord">
     update ticket_out_record
     <set>
       <if test="createTime != null">
@@ -378,7 +378,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.kaishengit.tms.entity.TicketOutRecord">
+  <update id="updateByPrimaryKey" parameterType="com.karsait.tms.entity.TicketOutRecord">
     update ticket_out_record
     set create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

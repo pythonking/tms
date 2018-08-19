@@ -30,7 +30,7 @@
     </bean>
 
     <!--3. 配置自定以的Realm-->
-    <bean id="myShiroReaml" class="com.kaishengit.tms.shiro.ShiroRealm"/>
+    <bean id="myShiroReaml" class="com.karsait.tms.shiro.ShiroRealm"/>
 
     <!--4. 配置生命周期处理器：自动调用shiro在Spring容器中配置的init(),destory()等生命周期方法-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
@@ -43,7 +43,7 @@
     </bean>-->
 
     <!--6. 配置ShiroFilter id必须和web.xml中的filter节点的filter-name相同-->
-    <bean id="filterChainDefinition" class="com.kaishengit.tms.shiro.CustomerFilterChainDefinition">
+    <bean id="filterChainDefinition" class="com.karsait.tms.shiro.CustomerFilterChainDefinition">
         <property name="shiroFilter" ref="shiroFilter"/>
         <property name="filterChainDefinitions">
             <value>

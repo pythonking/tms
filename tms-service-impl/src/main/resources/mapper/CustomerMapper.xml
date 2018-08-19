@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.tms.mapper.CustomerMapper">
-  <resultMap id="BaseResultMap" type="com.kaishengit.tms.entity.Customer">
+<mapper namespace="com.karsait.tms.mapper.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.karsait.tms.entity.Customer">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
     <result column="customer_id_card" jdbcType="VARCHAR" property="customerIdCard" />
@@ -79,7 +79,7 @@
     create_time, update_time, customer_photo, customer_tel, customer_address, ticket_id, 
     customer_age, customer_gender
   </sql>
-  <select id="selectByExample" parameterType="com.kaishengit.tms.entity.CustomerExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.karsait.tms.entity.CustomerExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -103,13 +103,13 @@
     delete from customer
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kaishengit.tms.entity.CustomerExample">
+  <delete id="deleteByExample" parameterType="com.karsait.tms.entity.CustomerExample">
     delete from customer
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.tms.entity.Customer">
+  <insert id="insert" parameterType="com.karsait.tms.entity.Customer">
     insert into customer (id, customer_name, customer_id_card, 
       customer_id_card_photo, customer_id_card_photo_back, 
       create_time, update_time, customer_photo, 
@@ -121,7 +121,7 @@
       #{customerTel,jdbcType=VARCHAR}, #{customerAddress,jdbcType=VARCHAR}, #{ticketId,jdbcType=BIGINT}, 
       #{customerAge,jdbcType=INTEGER}, #{customerGender,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.tms.entity.Customer" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.karsait.tms.entity.Customer" useGeneratedKeys="true" keyProperty="id">
     insert into customer
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -206,7 +206,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kaishengit.tms.entity.CustomerExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.karsait.tms.entity.CustomerExample" resultType="java.lang.Long">
     select count(*) from customer
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -278,7 +278,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.tms.entity.Customer">
+  <update id="updateByPrimaryKeySelective" parameterType="com.karsait.tms.entity.Customer">
     update customer
     <set>
       <if test="customerName != null">
@@ -320,7 +320,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.kaishengit.tms.entity.Customer">
+  <update id="updateByPrimaryKey" parameterType="com.karsait.tms.entity.Customer">
     update customer
     set customer_name = #{customerName,jdbcType=VARCHAR},
       customer_id_card = #{customerIdCard,jdbcType=VARCHAR},

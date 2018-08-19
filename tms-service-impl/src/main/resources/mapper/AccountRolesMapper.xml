@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.tms.mapper.AccountRolesMapper">
-  <resultMap id="BaseResultMap" type="com.kaishengit.tms.entity.AccountRolesKey">
+<mapper namespace="com.karsait.tms.mapper.AccountRolesMapper">
+  <resultMap id="BaseResultMap" type="com.karsait.tms.entity.AccountRolesKey">
     <id column="roles_id" jdbcType="INTEGER" property="rolesId" />
     <id column="account_id" jdbcType="INTEGER" property="accountId" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List">
     roles_id, account_id
   </sql>
-  <select id="selectByExample" parameterType="com.kaishengit.tms.entity.AccountRolesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.karsait.tms.entity.AccountRolesExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -80,22 +80,22 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.kaishengit.tms.entity.AccountRolesKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.karsait.tms.entity.AccountRolesKey">
     delete from account_roles
     where roles_id = #{rolesId,jdbcType=INTEGER}
       and account_id = #{accountId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kaishengit.tms.entity.AccountRolesExample">
+  <delete id="deleteByExample" parameterType="com.karsait.tms.entity.AccountRolesExample">
     delete from account_roles
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.tms.entity.AccountRolesKey">
+  <insert id="insert" parameterType="com.karsait.tms.entity.AccountRolesKey">
     insert into account_roles (roles_id, account_id)
     values (#{rolesId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.tms.entity.AccountRolesKey">
+  <insert id="insertSelective" parameterType="com.karsait.tms.entity.AccountRolesKey">
     insert into account_roles
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="rolesId != null">
@@ -114,7 +114,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kaishengit.tms.entity.AccountRolesExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.karsait.tms.entity.AccountRolesExample" resultType="java.lang.Long">
     select count(*) from account_roles
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

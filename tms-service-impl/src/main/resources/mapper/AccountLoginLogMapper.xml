@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.tms.mapper.AccountLoginLogMapper">
-  <resultMap id="BaseResultMap" type="com.kaishengit.tms.entity.AccountLoginLog">
+<mapper namespace="com.karsait.tms.mapper.AccountLoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.karsait.tms.entity.AccountLoginLog">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, login_ip, login_time, account_id
   </sql>
-  <select id="selectByExample" parameterType="com.kaishengit.tms.entity.AccountLoginLogExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.karsait.tms.entity.AccountLoginLogExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,19 +92,19 @@
     delete from account_login_log
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kaishengit.tms.entity.AccountLoginLogExample">
+  <delete id="deleteByExample" parameterType="com.karsait.tms.entity.AccountLoginLogExample">
     delete from account_login_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.tms.entity.AccountLoginLog">
+  <insert id="insert" parameterType="com.karsait.tms.entity.AccountLoginLog">
     insert into account_login_log (id, login_ip, login_time, 
       account_id)
     values (#{id,jdbcType=BIGINT}, #{loginIp,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
       #{accountId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.tms.entity.AccountLoginLog">
+  <insert id="insertSelective" parameterType="com.karsait.tms.entity.AccountLoginLog">
     insert into account_login_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kaishengit.tms.entity.AccountLoginLogExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.karsait.tms.entity.AccountLoginLogExample" resultType="java.lang.Long">
     select count(*) from account_login_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.tms.entity.AccountLoginLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.karsait.tms.entity.AccountLoginLog">
     update account_login_log
     <set>
       <if test="loginIp != null">
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.kaishengit.tms.entity.AccountLoginLog">
+  <update id="updateByPrimaryKey" parameterType="com.karsait.tms.entity.AccountLoginLog">
     update account_login_log
     set login_ip = #{loginIp,jdbcType=VARCHAR},
       login_time = #{loginTime,jdbcType=TIMESTAMP},

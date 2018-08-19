@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.tms.mapper.AccountMapper">
-    <resultMap id="BaseResultMap" type="com.kaishengit.tms.entity.Account">
+<mapper namespace="com.karsait.tms.mapper.AccountMapper">
+    <resultMap id="BaseResultMap" type="com.karsait.tms.entity.Account">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="account_name" jdbcType="VARCHAR" property="accountName"/>
         <result column="account_mobile" jdbcType="VARCHAR" property="accountMobile"/>
@@ -73,7 +73,7 @@
     <sql id="Base_Column_List">
     id, account_name, account_mobile, account_password, create_time, update_time, account_state
   </sql>
-    <select id="selectByExample" parameterType="com.kaishengit.tms.entity.AccountExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.karsait.tms.entity.AccountExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -97,13 +97,13 @@
     delete from account
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="com.kaishengit.tms.entity.AccountExample">
+    <delete id="deleteByExample" parameterType="com.karsait.tms.entity.AccountExample">
         delete from account
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.kaishengit.tms.entity.Account">
+    <insert id="insert" parameterType="com.karsait.tms.entity.Account">
     insert into account (id, account_name, account_mobile, 
       account_password, create_time, update_time, 
       account_state)
@@ -112,7 +112,7 @@
       #{accountState,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.kaishengit.tms.entity.Account">
+            parameterType="com.karsait.tms.entity.Account">
         insert into account
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -161,7 +161,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.kaishengit.tms.entity.AccountExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.karsait.tms.entity.AccountExample" resultType="java.lang.Long">
         select count(*) from account
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
@@ -272,7 +272,7 @@
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.tms.entity.Account">
+    <update id="updateByPrimaryKeySelective" parameterType="com.karsait.tms.entity.Account">
         update account
         <set>
             <if test="accountName != null">
@@ -296,7 +296,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.kaishengit.tms.entity.Account">
+    <update id="updateByPrimaryKey" parameterType="com.karsait.tms.entity.Account">
     update account
     set account_name = #{accountName,jdbcType=VARCHAR},
       account_mobile = #{accountMobile,jdbcType=VARCHAR},

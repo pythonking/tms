@@ -10,10 +10,10 @@
     <!--<dubbo:protocol host="192.168.1.112" port="20880"/>-->
 
     <!--发布服务-->
-    <dubbo:service interface="com.kaishengit.tms.service.AccountService" ref="accountServiceImpl"/>
-    <dubbo:service interface="com.kaishengit.tms.service.TicketStoreService" ref="ticketStoreServiceImpl"/>
-    <dubbo:service interface="com.kaishengit.tms.service.TicketService" ref="ticketServiceImpl"/>
-    <dubbo:service interface="com.kaishengit.tms.service.RolePermissionService" ref="rolePermissionServiceImpl"/>
+    <dubbo:service interface="com.karsait.tms.service.AccountService" ref="accountServiceImpl"/>
+    <dubbo:service interface="com.karsait.tms.service.TicketStoreService" ref="ticketStoreServiceImpl"/>
+    <dubbo:service interface="com.karsait.tms.service.TicketService" ref="ticketServiceImpl"/>
+    <dubbo:service interface="com.karsait.tms.service.RolePermissionService" ref="rolePermissionServiceImpl"/>
 
 
 </beans>
