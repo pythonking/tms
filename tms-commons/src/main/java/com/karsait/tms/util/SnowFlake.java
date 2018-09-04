@@ -9,7 +9,7 @@ public class SnowFlake {
     /**
      * 起始的时间戳
      */
-    private final static long START_STMP = 1480166465631L;
+    private final static long START_STMP = 1535431274094L;
 
     /**
      * 每一部分占用的位数
@@ -91,12 +91,13 @@ public class SnowFlake {
         return System.currentTimeMillis();
     }
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
         SnowFlake snowFlake = new SnowFlake(1, 1);
 
         for (int i = 0; i < (1 << 12); i++) {
             System.out.println(snowFlake.nextId());
         }
 
-    }*/
+    }
 }
