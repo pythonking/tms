@@ -5,7 +5,7 @@
 
     <dubbo:application name="TmsService"/>
 
-    <dubbo:registry address="zookeeper://192.168.135.170:2181"/>
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
     <!--<dubbo:protocol host="192.168.1.112" port="20880"/>-->
 
