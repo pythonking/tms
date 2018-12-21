@@ -2,14 +2,7 @@ package com.karsait.tms.service.impl;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
-import com.karsait.tms.entity.AccountRolesExample;
-import com.karsait.tms.entity.AccountRolesKey;
-import com.karsait.tms.entity.Permission;
-import com.karsait.tms.entity.PermissionExample;
-import com.karsait.tms.entity.Roles;
-import com.karsait.tms.entity.RolesExample;
-import com.karsait.tms.entity.RolesPermissionExample;
-import com.karsait.tms.entity.RolesPermissionKey;
+import com.karsait.tms.entity.*;
 import com.karsait.tms.exception.ServiceException;
 import com.karsait.tms.mapper.AccountRolesMapper;
 import com.karsait.tms.mapper.PermissionMapper;
@@ -28,6 +21,7 @@ import java.util.List;
 
 /**
  * 角色和权限的业务类
+ *
  * @author fankay
  */
 @Service
@@ -43,6 +37,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     private RolesPermissionMapper rolesPermissionMapper;
     @Autowired
     private AccountRolesMapper accountRolesMapper;
+
     /**
      * 添加权限
      *
@@ -52,7 +47,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     public void savePermission(Permission permission) {
         permission.setCreateTime(new Date());
         permissionMapper.insertSelective(permission);
-        logger.info("添加权限 {}",permission);
+        logger.info("添加权限 {}", permission);
     }
 
     /**
@@ -78,7 +73,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         PermissionExample permissionExample = new PermissionExample();
         List<Permission> permissionList = permissionMapper.selectByExample(permissionExample);
         List<Permission> resultList = new ArrayList<>();
-        treeList(permissionList,resultList,0);
+        treeList(permissionList, resultList, 0);
         return resultList;
     }
 
@@ -95,7 +90,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         roles.setCreateTime(new Date());
         rolesMapper.insertSelective(roles);
         //保存角色和权限的关系
-        if(permissionId != null) {
+        if (permissionId != null) {
             for (Integer perId : permissionId) {
                 RolesPermissionKey rolesPermissionKey = new RolesPermissionKey();
                 rolesPermissionKey.setPermissionId(perId);
@@ -104,7 +99,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
                 rolesPermissionMapper.insert(rolesPermissionKey);
             }
         }
-        logger.info("保存角色 {}",roles);
+        logger.info("保存角色 {}", roles);
     }
 
     /**
@@ -120,7 +115,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         permissionExample.createCriteria().andParentIdEqualTo(id);
 
         List<Permission> permissionList = permissionMapper.selectByExample(permissionExample);
-        if(permissionList != null && !permissionList.isEmpty()) {
+        if (permissionList != null && !permissionList.isEmpty()) {
             throw new ServiceException("该权限下有子节点，删除失败");
         }
 
@@ -129,13 +124,13 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         rolesPermissionExample.createCriteria().andPermissionIdEqualTo(id);
 
         List<RolesPermissionKey> rolesPermissionKeyList = rolesPermissionMapper.selectByExample(rolesPermissionExample);
-        if(rolesPermissionKeyList != null && !rolesPermissionKeyList.isEmpty()) {
+        if (rolesPermissionKeyList != null && !rolesPermissionKeyList.isEmpty()) {
             throw new ServiceException("该权限被角色引用，删除失败");
         }
         //如果没有被使用，则可以直接删除
         Permission permission = permissionMapper.selectByPrimaryKey(id);
         permissionMapper.deleteByPrimaryKey(id);
-        logger.info("删除权限 {}",permission);
+        logger.info("删除权限 {}", permission);
     }
 
     /**
@@ -162,7 +157,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         accountRolesExample.createCriteria().andRolesIdEqualTo(id);
 
         List<AccountRolesKey> accountRolesKeys = accountRolesMapper.selectByExample(accountRolesExample);
-        if(accountRolesKeys != null && !accountRolesKeys.isEmpty()) {
+        if (accountRolesKeys != null && !accountRolesKeys.isEmpty()) {
             throw new ServiceException("该角色被账号引用，删除失败");
         }
         //删除角色和权限的关系记录
@@ -174,7 +169,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         Roles roles = rolesMapper.selectByPrimaryKey(id);
         rolesMapper.deleteByPrimaryKey(id);
 
-        logger.info("删除角色 {}",roles);
+        logger.info("删除角色 {}", roles);
     }
 
     /**
@@ -203,16 +198,18 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
         rolesPermissionMapper.deleteByExample(rolesPermissionExample);
         //重建角色和权限的对应关系
-        for(Integer perId : permissionId) {
-            RolesPermissionKey rolesPermissionKey = new RolesPermissionKey();
-            rolesPermissionKey.setRolesId(roles.getId());
-            rolesPermissionKey.setPermissionId(perId);
-            rolesPermissionMapper.insert(rolesPermissionKey);
+        if (null != permissionId && permissionId.length > 0) {
+            for (Integer perId : permissionId) {
+                RolesPermissionKey rolesPermissionKey = new RolesPermissionKey();
+                rolesPermissionKey.setRolesId(roles.getId());
+                rolesPermissionKey.setPermissionId(perId);
+                rolesPermissionMapper.insert(rolesPermissionKey);
+            }
         }
         //修改角色对象
         rolesMapper.updateByPrimaryKeySelective(roles);
 
-        logger.info("修改角色 {}",roles);
+        logger.info("修改角色 {}", roles);
     }
 
     /**
@@ -248,16 +245,17 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
     /**
      * 将查询数据库的角色列表转换为树形集合结果
+     *
      * @param sourceList 数据库查询出的集合
-     * @param endList 转换结束的结果集合
-     * @param parentId 父ID
+     * @param endList    转换结束的结果集合
+     * @param parentId   父ID
      */
     private void treeList(List<Permission> sourceList, List<Permission> endList, int parentId) {
         List<Permission> tempList = Lists.newArrayList(Collections2.filter(sourceList, permission -> permission.getParentId().equals(parentId)));
 
-        for(Permission permission : tempList) {
+        for (Permission permission : tempList) {
             endList.add(permission);
-            treeList(sourceList,endList,permission.getId());
+            treeList(sourceList, endList, permission.getId());
         }
     }
 }
