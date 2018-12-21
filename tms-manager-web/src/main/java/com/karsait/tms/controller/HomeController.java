@@ -1,16 +1,10 @@
 package com.karsait.tms.controller;
 
 import com.karsait.tms.entity.Account;
-import com.karsait.tms.exception.ServiceException;
 import com.karsait.tms.service.AccountService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.SavedRequest;
@@ -22,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * 首页及登录、登出的控制器
+ *
  * @author fankay
  */
 @Controller
@@ -36,6 +30,7 @@ public class HomeController {
 
     /**
      * 系统登录页面
+     *
      * @return
      */
     @GetMapping("/")
@@ -46,11 +41,11 @@ public class HomeController {
         System.out.println("isRemembered()?" + subject.isRemembered());
 
         //判断当前是否有已经认证的账号，如果有，则退出该账号
-        if(subject.isAuthenticated()) {
+        if (subject.isAuthenticated()) {
             subject.logout();
         }
 
-        if(subject.isRemembered()) {
+        if (subject.isRemembered()) {
             //如果当前为被记住（通过rememberMe认证），则直接跳转到登录成功页面 home
             return "redirect:/home";
         }
@@ -61,6 +56,7 @@ public class HomeController {
 
     /**
      * 系统登录
+     *
      * @return
      */
     @PostMapping("/")
@@ -74,8 +70,9 @@ public class HomeController {
         Subject subject = SecurityUtils.getSubject();
         // 根据账号和密码进行登录
         String requestIp = request.getRemoteAddr();
+        String passwordMD5 = DigestUtils.md5Hex(password);
         UsernamePasswordToken usernamePasswordToken =
-                new UsernamePasswordToken(accountMobile,DigestUtils.md5Hex(password),rememberMe!=null,requestIp);
+                new UsernamePasswordToken(accountMobile, passwordMD5, rememberMe != null, requestIp);
 
         try {
             subject.login(usernamePasswordToken);
@@ -83,31 +80,32 @@ public class HomeController {
             //将登录成功的对象放入session（没必要）
             Account account = accountService.findByMobile(accountMobile);
             Session session = subject.getSession();
-            session.setAttribute("curr_account",account);
+            session.setAttribute("curr_account", account);
 
             //登录后跳转目标的判断
             SavedRequest savedRequest = WebUtils.getSavedRequest(request);
             String url = "/home";
-            if(savedRequest != null) {
+            if (savedRequest != null) {
                 url = savedRequest.getRequestUrl();
             }
 
-            return "redirect:"+url;
+            return "redirect:" + url;
         } catch (UnknownAccountException | IncorrectCredentialsException ex) {
             ex.printStackTrace();
-            redirectAttributes.addFlashAttribute("message","账号或密码错误");
+            redirectAttributes.addFlashAttribute("message", "账号或密码错误");
         } catch (LockedAccountException ex) {
             ex.printStackTrace();
-            redirectAttributes.addFlashAttribute("message","账号被锁定");
+            redirectAttributes.addFlashAttribute("message", "账号被锁定");
         } catch (AuthenticationException ex) {
             ex.printStackTrace();
-            redirectAttributes.addFlashAttribute("message","账号或密码错误");
+            redirectAttributes.addFlashAttribute("message", "账号或密码错误");
         }
         return "redirect:/";
     }
 
     /**
      * 登录后的首页
+     *
      * @return
      */
     @GetMapping("/home")
@@ -117,6 +115,7 @@ public class HomeController {
 
     /**
      * 安全退出
+     *
      * @return
      */
     /*@GetMapping("/logout")
@@ -127,7 +126,6 @@ public class HomeController {
         redirectAttributes.addFlashAttribute("message","你已安全退出系统");
         return "redirect:/";
     }*/
-
     @GetMapping("/401")
     public String unauthorizedUrl() {
         return "error/401";
