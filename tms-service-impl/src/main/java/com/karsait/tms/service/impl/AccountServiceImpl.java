@@ -23,6 +23,7 @@ import java.util.Map;
 
 /**
  * 系统账号的业务类
+ *
  * @author fankay
  */
 @Service
@@ -51,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
         account.setCreateTime(new Date());
         //账号默认密码为手机号码的后6位
         String password;
-        if(account.getAccountMobile().length() <= 6) {
+        if (account.getAccountMobile().length() <= 6) {
             password = account.getAccountMobile();
         } else {
             password = account.getAccountMobile().substring(5);
@@ -66,12 +67,14 @@ public class AccountServiceImpl implements AccountService {
         accountMapper.insertSelective(account);
 
         //添加账号和角色的对应关系表
-        for(Integer roleId : rolesIds) {
-            AccountRolesKey accountRolesKey = new AccountRolesKey();
-            accountRolesKey.setAccountId(account.getId());
-            accountRolesKey.setRolesId(roleId);
+        if (null != rolesIds && rolesIds.length != 0) {
+            for (Integer roleId : rolesIds) {
+                AccountRolesKey accountRolesKey = new AccountRolesKey();
+                accountRolesKey.setAccountId(account.getId());
+                accountRolesKey.setRolesId(roleId);
 
-            accountRolesMapper.insert(accountRolesKey);
+                accountRolesMapper.insert(accountRolesKey);
+            }
         }
     }
 
@@ -126,7 +129,7 @@ public class AccountServiceImpl implements AccountService {
         accountRolesMapper.deleteByExample(accountRolesExample);
 
         //新增账号-角色关系
-        if(rolesIds != null) {
+        if (rolesIds != null) {
             for (Integer rolesId : rolesIds) {
                 AccountRolesKey accountRolesKey = new AccountRolesKey();
                 accountRolesKey.setRolesId(rolesId);
@@ -135,7 +138,7 @@ public class AccountServiceImpl implements AccountService {
             }
         }
 
-        logger.info("修改账号 {}",account);
+        logger.info("修改账号 {}", account);
     }
 
     /**
@@ -150,7 +153,7 @@ public class AccountServiceImpl implements AccountService {
         accountExample.createCriteria().andAccountMobileEqualTo(userMobile);
 
         List<Account> accountList = accountMapper.selectByExample(accountExample);
-        if(accountList != null && !accountList.isEmpty()) {
+        if (accountList != null && !accountList.isEmpty()) {
             return accountList.get(0);
         }
         return null;
