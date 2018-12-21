@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
         if(account.getAccountMobile().length() <= 6) {
             password = account.getAccountMobile();
         } else {
-            password = account.getAccountMobile().substring(6);
+            password = account.getAccountMobile().substring(5);
         }
         //对密码进行MD5加密
         password = DigestUtils.md5Hex(password);
