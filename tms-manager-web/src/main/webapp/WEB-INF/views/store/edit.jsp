@@ -50,7 +50,7 @@
                         <input type="hidden" name="id" value="${ticketStore.id}">
                         <input type="hidden" id="storeManagerAttachment" name="storeManagerAttachment" value="${ticketStore.storeManagerAttachment}">
                         <input type="hidden" id="storeAttachment" name="storeAttachment" value="${ticketStore.storeAttachment}">
-                        <input type="hidden" name="storeAccountId" value="${ticketStore.storeAccountId}">
+                        <input type="hidden" name="storeAccountId" value="${ticketStore.id}">
                         <div class="form-group">
                             <label>售票点名称</label>
                             <input type="text" class="form-control" name="storeName" value="${ticketStore.storeName}">
